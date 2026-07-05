@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhotoAI — Adobe Photoshop Expert & Multilingual AI</title>
+  <meta name="description" content="AI-powered chat assistant specializing in Adobe Photoshop (all versions), supporting Bangla, English and all world languages." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ══ SIDEBAR ══════════════════════════════════════════ -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="logo">
+      <span class="logo-icon">🎨</span>
+      <span class="logo-text">PhotoAI</span>
+    </div>
+    <button class="new-chat-btn" id="newChatBtn" title="New Chat">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+      New Chat
+    </button>
+  </div>
+
+  <div class="sidebar-section-label">Recent Chats</div>
+  <div class="chat-history" id="chatHistory">
+    <div class="history-empty">No chats yet.<br>Start a conversation!</div>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-tip">
+      <span class="tip-icon">💡</span>
+      <div>
+        <strong>Tip:</strong> Ask me anything about Photoshop — any version from 1.0 to 2025!
+      </div>
+    </div>
+    <div class="powered-by">
+      Powered by Ollama · Llama 3.2<br>
+      <span class="made-by">Made by SB Studio</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN AREA ═════════════════════════════════════════ -->
+<div class="main" id="main">
+
+  <!-- Top Bar -->
+  <div class="topbar">
+    <button class="menu-toggle" id="menuToggle" title="Toggle Sidebar">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="topbar-title">
+      <span class="status-dot" id="statusDot"></span>
+      <span id="statusText">PhotoAI</span>
+    </div>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="clearBtn" title="Clear Chat">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Chat Container -->
+  <div class="chat-container" id="chatContainer">
+
+    <!-- Model Setup / Download Progress Bar -->
+    <div class="model-progress-container" id="modelProgressContainer" style="display: none; padding: 16px; background: rgba(147, 51, 234, 0.08); border-bottom: 1px solid rgba(147, 51, 234, 0.15); margin-bottom: 15px; border-radius: 8px;">
+      <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: #c084fc; margin-bottom: 6px;">
+        <span id="modelProgressTitle">Initializing model...</span>
+        <span id="modelProgressPercent">0%</span>
+      </div>
+      <div style="width: 100%; height: 6px; background: rgba(255, 255, 255, 0.08); border-radius: 3px; overflow: hidden;">
+        <div id="modelProgressBar" style="width: 0%; height: 100%; background: linear-gradient(90deg, #a855f7, #db2777); transition: width 0.3s ease;"></div>
+      </div>
+      <div id="modelProgressDetail" style="font-size: 11px; color: #94a3b8; margin-top: 6px; text-align: left; line-height: 1.4;">
+        Checking model status...
+      </div>
+    </div>
+
+    <!-- Welcome Screen -->
+    <div class="welcome-screen" id="welcomeScreen">
+      <div class="welcome-logo">
+        <div class="welcome-icon">🎨</div>
+        <h1>PhotoAI</h1>
+        <p class="welcome-subtitle">Adobe Photoshop Expert · Multilingual AI · Bangla & English</p>
+      </div>
+
+      <div class="welcome-cards">
+        <div class="welcome-card" data-prompt="Photoshop 2025-এ Generative Fill কিভাবে ব্যবহার করতে হয়?">
+          <div class="card-icon">✨</div>
+          <div class="card-text">
+            <strong>Generative Fill</strong>
+            <span>Photoshop 2025 AI টুল ব্যবহার করুন</span>
+          </div>
+        </div>
+        <div class="welcome-card" data-prompt="How do I remove background in Photoshop CS6 manually using Pen Tool?">
+          <div class="card-icon">✂️</div>
+          <div class="card-text">
+            <strong>Background Removal</strong>
+            <span>Pen Tool & Select Subject methods</span>
+          </div>
+        </div>
+        <div class="welcome-card" data-prompt="Ghost mannequin effect কিভাবে করতে হয় Photoshop-এ? ধাপে ধাপে বলুন।">
+          <div class="card-icon">👕</div>
+          <div class="card-text">
+            <strong>Ghost Mannequin</strong>
+            <span>Neck joint technique — বাংলায়</span>
+          </div>
+        </div>
+        <div class="welcome-card" data-prompt="What are all the blending modes in Photoshop and what does each one do?">
+          <div class="card-icon">🎭</div>
+          <div class="card-text">
+            <strong>Blending Modes</strong>
+            <span>All 27 modes explained</span>
+          </div>
+        </div>
+        <div class="welcome-card" data-prompt="Photoshop 3.0 থেকে 2025 পর্যন্ত কোন version-এ কোন feature এসেছে?">
+          <div class="card-icon">📅</div>
+          <div class="card-text">
+            <strong>Version History</strong>
+            <span>PS 1.0 → 2025 সব ফিচার</span>
+          </div>
+        </div>
+        <div class="welcome-card" data-prompt="How to do professional photo retouching and skin smoothing in Photoshop?">
+          <div class="card-icon">💄</div>
+          <div class="card-text">
+            <strong>Photo Retouching</strong>
+            <span>Skin, beauty & portrait editing</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="welcome-hint">
+        🌍 আপনি বাংলায় বা English-এ যেকোনো ভাষায় লিখতে পারেন · All languages supported
+      </p>
+    </div>
+
+    <!-- Messages -->
+    <div class="messages" id="messages"></div>
+
+  </div>
+
+  <!-- Input Area -->
+  <div class="input-area">
+    <div class="input-wrapper">
+      <textarea
+        id="messageInput"
+        placeholder="Ask anything about Photoshop... · বাংলায় লিখুন · Any language..."
+        rows="1"
+        maxlength="4000"
+      ></textarea>
+      <button class="send-btn" id="sendBtn" title="Send Message">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+    <div class="input-footer">
+      <span>PhotoAI can make mistakes. Verify important Photoshop steps.</span>
+      <span class="char-count" id="charCount">0 / 4000</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- Ollama Status Banner (shown when Ollama is not running) -->
+<div class="api-banner" id="apiBanner" style="display:none">
+  <div class="api-banner-content">
+    <span>ℹ️ Ollama not detected — running in Built-in mode.</span>
+    <a href="https://ollama.com" target="_blank">Install Ollama →</a>
+    <span>Then run: <code>ollama pull llama3.2</code></span>
+    <button onclick="document.getElementById('apiBanner').style.display='none'">✕</button>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
